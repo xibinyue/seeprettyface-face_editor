@@ -48,3 +48,6 @@ def server_gan():
     print('bind port...')
     s.run()
     print('server runing....')
+
+if __name__ == '__main__':
+    server_gan()
