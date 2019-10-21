@@ -29,7 +29,7 @@ class ImageGenerator(object):
         return res
 
     def generate(self, model, latent, coeffs):
-        with open(models[model], "rb") as f:
+        with open(os.path.join('model', models[model]), "rb") as f:
             generator_network, discriminator_network, Gs_network = pickle.load(f)
         generator = Generator(Gs_network, batch_size=1, randomize_noise=False)
 
