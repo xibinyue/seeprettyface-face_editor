@@ -9,6 +9,7 @@ import dnnlib.tflib as tflib
 from util.generator_model import Generator
 import os
 from util.utils import *
+import cv2
 
 from play_with_dlatent import read_feature, generate_image
 
@@ -25,7 +26,7 @@ class ImageGenerator(object):
             result = generate_image(new_latent_vector, generator)
             dst_path = os.path.join('results', '%s.png' % str(i).zfill(3))
             result.save(dst_path)
-            res.append(result)
+            res.append(dst_path)
         return res
 
     def generate(self, model, latent, coeffs):
