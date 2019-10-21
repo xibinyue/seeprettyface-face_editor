@@ -4,6 +4,6 @@
 import zerorpc
 
 c = zerorpc.Client()
-c.connect("tcp://127.0.0.1:8688")
+c.connect("tcp://0.0.0.0:8688")
 print(c.listinfo("this is test string"))
 print(c.generate('黄种人', '微笑程度', [-1., 0., 1.]))
