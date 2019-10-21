@@ -9,7 +9,6 @@ import dnnlib.tflib as tflib
 from util.generator_model import Generator
 import os
 from util.utils import *
-import cv2
 
 from play_with_dlatent import read_feature, generate_image
 
