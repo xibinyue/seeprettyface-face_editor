@@ -16,19 +16,6 @@ from play_with_dlatent import read_feature, generate_image
 class ImageGenerator(object):
     def __init__(self):
         tflib.init_tf()
-        self.asia_model_face_dlatent, self.asia_model_generator = self.init_model('黄种人')
-        print('init model-1 done.')
-        self.wh_model_face_dlatent, self.wh_model_generator = self.init_model('网红脸')
-        # self.dm_model_face_dlatent, self.dm_model_generator = self.init_model('动漫老婆')
-
-    def init_model(self, model_name):
-        with open(os.path.join('model', models[model_name]), "rb") as f:
-            generator_network, discriminator_network, Gs_network = pickle.load(f)
-        generator = Generator(Gs_network, batch_size=1, randomize_noise=False)
-        face_latent = read_feature('input_latent/0001.txt')
-        stack_latents = np.stack(face_latent for _ in range(1))
-        face_dlatent = Gs_network.components.mapping.run(stack_latents, None)
-        return face_dlatent, generator
 
     def move_latent_and_save(self, latent_vector, direction, coeffs, generator):
         res = []
@@ -42,14 +29,13 @@ class ImageGenerator(object):
         return res
 
     def generate(self, model, latent, coeffs):
-        if model == '黄种人':
-            face_dlatent, generator = self.asia_model_face_dlatent, self.asia_model_generator
-        elif model == '网红脸':
-            face_dlatent, generator = self.wh_model_face_dlatent, self.wh_model_generator
-        elif model == '动漫老婆':
-            face_dlatent, generator = self.dm_model_face_dlatent, self.dm_model_generator
-        else:
-            return 'can not generator this type'
+        with open(os.path.join('model', models[model]), "rb") as f:
+            generator_network, discriminator_network, Gs_network = pickle.load(f)
+        generator = Generator(Gs_network, batch_size=1, randomize_noise=False)
+
+        face_latent = read_feature('input_latent/0001.txt')
+        stack_latents = np.stack(face_latent for _ in range(1))
+        face_dlatent = Gs_network.components.mapping.run(stack_latents, None)
         direction = np.load(latents[latent])
         # coeffs = [-5., -4., -3., -2., -1., 0., 1., 2., 3., 4.]
         imgs_list = self.move_latent_and_save(face_dlatent, direction, coeffs, generator)
