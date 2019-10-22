@@ -24,9 +24,9 @@ class ImageGenerator(object):
             new_latent_vector = latent_vector.copy()
             new_latent_vector[:8] = (latent_vector + coeff * direction)[:8]
             result = generate_image(new_latent_vector, generator)
-            dst_path = os.path.join('results', '%s.png' % str(i).zfill(3))
+            dst_path = os.path.join('/opt/ThorOdinsonWeb/static/tmp', '%s.png' % str(i).zfill(3))
             result.save(dst_path)
-            res.append(dst_path)
+            res.append(dst_path[20:])
         return res
 
     def generate(self, model, latent, coeffs):
