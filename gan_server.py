@@ -9,6 +9,7 @@ import dnnlib.tflib as tflib
 from util.generator_model import Generator
 import os
 from util.utils import *
+import json
 
 from play_with_dlatent import read_feature, generate_image
 
@@ -39,7 +40,7 @@ class ImageGenerator(object):
         direction = np.load(latents[latent])
         # coeffs = [-5., -4., -3., -2., -1., 0., 1., 2., 3., 4.]
         imgs_list = self.move_latent_and_save(face_dlatent, direction, coeffs, generator)
-        return imgs_list
+        return json.dumps({'imgs': imgs_list})
 
 
 def server_gan():
