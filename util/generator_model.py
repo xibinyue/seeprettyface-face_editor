@@ -10,7 +10,7 @@ def create_stub(name, batch_size):
 
 
 def create_variable_for_generator(name, batch_size, tiled_dlatent, model_scale=18):
-    with tf.variable_scope('dlatents', reuse=None):
+    with tf.variable_scope('dlatents', reuse=tf.AUTO_REUSE):
         if tiled_dlatent:
             low_dim_dlatent = tf.get_variable('learnable_dlatents',
                                               shape=(batch_size, 512),
