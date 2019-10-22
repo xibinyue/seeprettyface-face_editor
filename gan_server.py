@@ -17,8 +17,8 @@ class ImageGenerator(object):
     def __init__(self):
         tflib.init_tf()
         self.asia_model_face_dlatent, self.asia_model_generator = self.init_model('黄种人')
-        self.wh_model_face_dlatent, self.wh_model_generator = self.init_model('网红脸')
-        self.dm_model_face_dlatent, self.dm_model_generator = self.init_model('动漫老婆')
+        # self.wh_model_face_dlatent, self.wh_model_generator = self.init_model('网红脸')
+        # self.dm_model_face_dlatent, self.dm_model_generator = self.init_model('动漫老婆')
 
     def init_model(self, model_name):
         with open(os.path.join('model', models[model_name]), "rb") as f:
