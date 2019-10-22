@@ -28,7 +28,7 @@ class Generator:
         self.batch_size = batch_size
         self.tiled_dlatent=tiled_dlatent
         self.model_scale = int(2*(math.log(model_res,2)-1)) # For example, 1024 -> 18
-
+        tf.reset_default_graph()
         if tiled_dlatent:
             self.initial_dlatents = np.zeros((self.batch_size, 512))
             model.components.synthesis.run(np.zeros((self.batch_size, self.model_scale, 512)),
