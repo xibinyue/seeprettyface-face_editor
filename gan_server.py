@@ -40,6 +40,7 @@ class ImageGenerator(object):
         direction = np.load(latents[latent])
         # coeffs = [-5., -4., -3., -2., -1., 0., 1., 2., 3., 4.]
         imgs_list = self.move_latent_and_save(face_dlatent, direction, coeffs, generator)
+        del generator, face_dlatent, face_latent
         return json.dumps({'imgs': imgs_list})
 
 
